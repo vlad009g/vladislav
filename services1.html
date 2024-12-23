@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Расчёт топлива и стоимости</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Калькулятор топлива</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="account.html">Личный кабинет</a></li>
+                <li><a href="services.html">Сервисы</a></li>
+                <li><a href="forum.html">Форум</a></li>
+                <li><a href="safety.html">Безопасность</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Расчёт расхода топлива и стоимости</h2>
+        <form id="fuelForm">
+            <label for="fuelUsed">Использовано топлива (л):</label>
+            <input type="number" id="fuelUsed" required>
+            <br>
+            <label for="distanceTraveled">Пройденное расстояние (км):</label>
+            <input type="number" id="distanceTraveled" required>
+            <br>
+            <label for="fuelPrice">Цена топлива за литр (Тенге):</label>
+            <input type="number" id="fuelPrice" required>
+            <br>
+            <button type="button" onclick="calculateFuelAndCost()">Рассчитать</button>
+        </form>
+        <h3>Результаты:</h3>
+        <p id="result">Заполните форму и нажмите "Рассчитать".</p>
+    </main>
+    <footer>
+        <p>&copy; 2024 Сайт для водителей</p>
+    </footer>
+
+    <script>
+        function calculateFuelAndCost() {
+            const fuelUsed = parseFloat(document.getElementById('fuelUsed').value);
+            const distanceTraveled = parseFloat(document.getElementById('distanceTraveled').value);
+            const fuelPrice = parseFloat(document.getElementById('fuelPrice').value);
+
+            if (isNaN(fuelUsed) || isNaN(distanceTraveled) || isNaN(fuelPrice)) {
+                document.getElementById('result').innerText = "Пожалуйста, заполните все поля.";
+                return;
+            }
+
+            // Расчёт расхода топлива на 100 км
+            const consumptionPer100km = (fuelUsed / distanceTraveled) * 100;
+
+            // Общая стоимость топлива
+            const totalCost = fuelUsed * fuelPrice;
+
+            document.getElementById('result').innerText =
+                `Расход топлива на 100 км: ${consumptionPer100km.toFixed(2)} л.\nОбщая стоимость: ${totalCost.toFixed(2)} Тенге.`;
+        }
+    </script>
+</body>
+</html>
